@@ -123,6 +123,20 @@ footer a{color:var(--link);font-weight:600}
 .nw-bubble:after{content:"";position:absolute;right:24px;bottom:-10px;width:16px;height:16px;background:#FFFFFF;border-right:2px solid #17241C;border-bottom:2px solid #17241C;transform:rotate(45deg)}
 .nw-h{margin:0 0 6px;font:800 16px "Bricolage Grotesque",Inter,sans-serif}
 .nw-t{margin:0;font-size:14.5px;line-height:1.5}
+.nb-card .src{margin:6px 0 0;font-size:12.5px;line-height:1.4;color:var(--muted)}
+.nb-card .src b{display:inline;margin:0;font-size:inherit;font-weight:600}
+.share-ic{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;padding:0;border:0;border-radius:50%;background:rgba(23,36,28,.08);background:color-mix(in srgb,var(--ink) 8%,transparent);color:var(--ink);cursor:pointer}
+.share-ic:hover{filter:brightness(.95)}
+.share-ic svg{width:22px;height:22px}
+.share-menu{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:12px auto 0;padding:12px;max-width:460px;border-radius:14px;background:var(--bg)}
+.share-menu[hidden]{display:none}
+.share-menu .btn{text-decoration:none}
+.share-hint{flex-basis:100%;margin:2px 0 0;font-size:13.5px;line-height:1.45;color:var(--muted)}
+.end-src{margin:14px auto 0;max-width:460px;text-align:left;font-size:14px}
+.end-src summary{width:max-content;margin:0 auto;padding:6px 10px;cursor:pointer;color:var(--link);font-weight:600;list-style-position:inside}
+.end-src .es-g{margin:10px 0 0;padding:2px 0 2px 10px;border-left:4px solid var(--bcol)}
+.end-src .es-g b{display:block;font-size:14px}
+.end-src .es-g p{margin:2px 0 0;font-size:13.5px;line-height:1.45;color:var(--muted)}
 .nw-act{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap;margin-top:12px}
 .nw-act .btn{min-height:40px;padding:6px 14px;font-size:14px;border-color:#17241C;background:#FFFFFF;color:#17241C}
 .nw-act .btn.primary{background:#17241C;color:#FFFFFF}
@@ -412,9 +426,17 @@ footer a{color:var(--link);font-weight:600}
     <pre id="grid-share" aria-label="Sonuç"></pre>
     <div class="actions">
       <button type="button" class="btn primary" id="copy" data-t="copy">Sonucu kopyala</button>
+      <button type="button" class="share-ic" id="shareBtn" aria-label="Paylaş" aria-expanded="false" aria-controls="shareMenu"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"><path d="M14 4.5 21 11l-7 6.5v-3.7c-4.6 0-7.8 1.5-10 4.9.6-5.2 3.6-9.4 10-10.2Z"/></svg></button>
       <a class="btn" href="#elmalarim" style="text-decoration:none;display:inline-flex;align-items:center" data-t="statsBtn">İstatistikler</a>
       <a class="btn" href="#" style="text-decoration:none;display:inline-flex;align-items:center" data-t="back">Ağaca dön</a>
     </div>
+    <div class="share-menu" id="shareMenu" hidden>
+      <a class="btn" id="shX" href="https://x.com/intent/tweet" target="_blank" rel="noopener">X</a>
+      <a class="btn" id="shWa" href="https://wa.me/" target="_blank" rel="noopener">WhatsApp</a>
+      <button type="button" class="btn" id="shDlBtn" data-t="shDlBtn">Görseli indir</button>
+      <p class="share-hint" id="shHint" role="status" hidden></p>
+    </div>
+    <details class="end-src" id="endSrc" hidden><summary data-t="srcList">Kaynaklar</summary><div id="endSrcList"></div></details>
   </div>
 </div>
 <button type="button" class="hint" id="hintBtn"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.3 15.3L21 21" stroke-width="2.6"/><path d="M7.6 8.6a3.6 3.6 0 0 1 2.4-1.9" stroke-width="1.6"/></svg><span data-t="hint">İpucu</span><span class="hc" id="hintN">4</span></button>
@@ -517,7 +539,7 @@ var T={
   hint:"İpucu",hintAria:"İpucu al: çözülmemiş bir gruptan bir kelime gösterilir. Kalan: {n}",hintMsg:"İşaretli kelime, aynı renkteki gruba ait.",hintNone:"İpucu kalmadı.",hintLocked:"Önce işaretli kelimenin grubunu bul.",hintUsed:"Kullanılan ipucu: {n}",hintZero:"İpucu kullanmadan çözdün!",hintShare:"İpucu: {n}",
   donate:"Destek ol",donEnd:"Graviddle’ı sevdiysen",donLink:"bir kahve ısmarla",donH:"Bir kahve ısmarla",donP1:"Graviddle ücretsiz ve reklamsız. Bulmacaları ve “Biliyor muydun?” notlarını fizik ve matematik öğrencisi iki kardeş boş zamanlarında hazırlıyor.",donP2:"Oyunu sevdiysen küçük bir bağışla destek olabilirsin. Bağış tamamen isteğe bağlı; arşiv ve bütün oyunlar herkese açık kalacak.",donBtn:"Destek ol",donSoon:"Prototip: bağış bağlantısı henüz eklenmedi.",
   tabNotes:"Notlar",tabCards:"Kartlar",tabTest:"Test",flip:"Kartı çevir",know:"Biliyordum",dunno:"Bilmiyordum",cardProg:"{i} / {n}",cardsNone:"Bugün tekrar edilecek kart yok. Yarın yeni tekrarlar gelecek.",cardsAnyway:"Yine de çalış",cardsEmpty:"Kart yapmak için önce birkaç not kaydetmelisin. Bir grubu çözünce Newton’un notunu “Deftere kaydet” ile ekle.",cardsDone:"Bitti! {k} kartı biliyordun, {d} kartı yakında tekrar göreceksin.",restart:"Baştan",backNotes:"Notlara dön",whatGroup:"Bu not hangi gruptan?",testNeed:"Test için defterinde en az 3 not olmalı. Şu an: {n}.",testStart:"Teste başla",testQ:"Soru {i} / {n}",right2:"Doğru!",wrong2:"Yanlış. Doğru cevap: {a}",next:"Sonraki",testDone:"{n} sorudan {k} doğru.",testAgain:"Yeni test",shWin:"Çözüldü · {m} hata",shLose:"Çözülemedi",
-  nb:"Not Defterim",ok:"Tamam",dykH:"Biliyor muydun?",save:"Deftere kaydet",saved:"Defterde ✓",readNote:"Newton’un notu",nwHello:"Merhaba! Bir grubu bulduğunda sana o konuyla ilgili ilginç bir şey anlatacağım.",nbH:"Not Defterim",nbSub:"Kaydettiğin “Biliyor muydun?” notları.",nbEmpty:"Defterin henüz boş. Bir grubu çözünce Newton’un anlattığı notu “Deftere kaydet” ile buraya ekleyebilirsin.",nbProto:"Notların yalnızca bu tarayıcıda saklanıyor. Başka bir cihaza taşımak için Elmalarım sayfasındaki “İlerlemeni aktar” bölümünü kullan.",del:"Sil",from:"Entangled #{n}",
+  nb:"Not Defterim",ok:"Tamam",dykH:"Biliyor muydun?",srcH:"Kaynak:",srcHs:"Kaynaklar:",srcList:"Bu bulmacanın kaynakları",shareBtn:"Paylaş",shDlBtn:"Görseli indir",shWait:"Görsel hazırlanıyor, bir saniye sonra tekrar dene.",shDl:"Görsel indirildi. Instagram hikâyesi için telefondan paylaşabilirsin.",imgSlogan:"Her gün bir elma düşer.",save:"Deftere kaydet",saved:"Defterde ✓",readNote:"Newton’un notu",nwHello:"Merhaba! Bir grubu bulduğunda sana o konuyla ilgili ilginç bir şey anlatacağım.",nbH:"Not Defterim",nbSub:"Kaydettiğin “Biliyor muydun?” notları.",nbEmpty:"Defterin henüz boş. Bir grubu çözünce Newton’un anlattığı notu “Deftere kaydet” ile buraya ekleyebilirsin.",nbProto:"Notların yalnızca bu tarayıcıda saklanıyor. Başka bir cihaza taşımak için Elmalarım sayfasındaki “İlerlemeni aktar” bölümünü kullan.",del:"Sil",from:"Entangled #{n}",
   fsName:"Fizikçinin Seçimi",fsNone:"Henüz bir Fizikçinin Seçimi bulmacası yok. İlki bir cuma günü gelecek.",gsubFs:"Her cuma günün bulmacası fizikçiler için. Çözene altın elma; serini etkilemez.",tagFs:"Bugünün bulmacası · cuma",tagFsArch:"Arşivden",winGold:"Altın elma senin! Takviminde parlıyor.",loseGold:"Bu altın elma dalda kaldı. Gelecek cuma yenisi gelecek; serin etkilenmedi.",shareFs:"Entangled · Fizikçinin Seçimi #{n}",fsToday:"Fizikçinin Seçimi · #{n}",fsDone:"Altın elma toplandı · #{n}",fsEnd:"Bugün bir de bonus var:",fsEndLink:"Fizikçinin Seçimi",basketFri:"Bugün {n}/1 altın elma",toFs:"Fizikçinin Seçimi arşivi →",toDaily:"← Günlük bulmacalar",collectedGold:"Altın elmayı topladın!",fromFs:"Fizikçinin Seçimi #{n}",lgGold:"Altın elma (Fizikçinin Seçimi)",dGold:"{d}: altın elma",dGoldAdd:"altın elma da var",ddGold:"altın elma",ddArchFs:"arşivden, altın elma sayılmaz",how6:"Her cuma günün bulmacası Fizikçinin Seçimi: fizikçilere özel, daha zor bir bulmaca. Çözene altın elma; cuma günleri serini etkilemez.",share:"Entangled #{n}",ready:"hazır",draftW:"taslak",badW:"hatalı",dyk:"Biliyor muydun? ",draft:"Önizleme · {d}",errH:"bulmacalar.txt dosyasında sorun var",notFound:"#{n} numaralı bulmaca yok.",badP:"#{n} bulmacasında hata var; yukarıdaki listeye bak.",loadFail:"Bulmaca dosyası okunamadı.",
   myApples:"Elmalarım",stSub:"Topladığın elmalar, serin ve istatistiklerin.",statsBtn:"İstatistikler",calH:"Takvim",
   stPlayed:"oynanan bulmaca",stWin:"kazanma oranı",stStreak:"günlük seri",stBest:"en uzun seri",stApples:"toplam elma",
@@ -543,7 +565,7 @@ var T={
   hint:"Hint",hintAria:"Get a hint: shows one word from an unsolved group. Left: {n}",hintMsg:"The marked word belongs to the group of that colour.",hintNone:"No hints left.",hintLocked:"Find the marked word’s group first.",hintUsed:"Hints used: {n}",hintZero:"Solved without hints!",hintShare:"Hints: {n}",
   donate:"Support us",donEnd:"Enjoying Graviddle?",donLink:"Buy us a coffee",donH:"Buy us a coffee",donP1:"Graviddle is free and ad-free. The puzzles and “Did you know?” notes are made by two siblings studying physics and mathematics in their spare time.",donP2:"If you enjoy the game, you can support it with a small donation. It’s completely optional; the archive and all games stay open to everyone.",donBtn:"Support Graviddle",donSoon:"Prototype: the donation link hasn’t been added yet.",
   tabNotes:"Notes",tabCards:"Cards",tabTest:"Quiz",flip:"Flip card",know:"I knew it",dunno:"I didn’t know",cardProg:"{i} / {n}",cardsNone:"No cards to review today. New reviews will come tomorrow.",cardsAnyway:"Study anyway",cardsEmpty:"Save a few notes first to make cards. When you solve a group, tap “Save to notebook” on Newton’s note.",cardsDone:"Done! You knew {k} cards; you’ll see {d} again soon.",restart:"Start over",backNotes:"Back to notes",whatGroup:"Which group is this note from?",testNeed:"You need at least 3 notes in your notebook for a quiz. Right now: {n}.",testStart:"Start quiz",testQ:"Question {i} / {n}",right2:"Correct!",wrong2:"Not quite. The answer: {a}",next:"Next",testDone:"{k} out of {n} correct.",testAgain:"New quiz",shWin:"Solved · {m} mistakes",shLose:"Not solved",
-  nb:"My notebook",ok:"Got it",dykH:"Did you know?",save:"Save to notebook",saved:"In notebook ✓",readNote:"Newton’s note",nwHello:"Hello! When you find a group, I’ll tell you something interesting about it.",nbH:"My notebook",nbSub:"The “Did you know?” notes you saved.",nbEmpty:"Your notebook is empty. When you solve a group, tap “Save to notebook” on Newton’s note to keep it here.",nbProto:"Your notes are stored only in this browser. To move them to another device, use “Transfer your progress” on the My apples page.",del:"Remove",from:"Entangled #{n}",
+  nb:"My notebook",ok:"Got it",dykH:"Did you know?",srcH:"Source:",srcHs:"Sources:",srcList:"Sources for this puzzle",shareBtn:"Share",shDlBtn:"Download image",shWait:"The image is still being prepared; try again in a second.",shDl:"Image downloaded. To post an Instagram story, share it from your phone.",imgSlogan:"Every day, an apple falls.",save:"Save to notebook",saved:"In notebook ✓",readNote:"Newton’s note",nwHello:"Hello! When you find a group, I’ll tell you something interesting about it.",nbH:"My notebook",nbSub:"The “Did you know?” notes you saved.",nbEmpty:"Your notebook is empty. When you solve a group, tap “Save to notebook” on Newton’s note to keep it here.",nbProto:"Your notes are stored only in this browser. To move them to another device, use “Transfer your progress” on the My apples page.",del:"Remove",from:"Entangled #{n}",
   fsName:"Physicist’s Pick",fsNone:"There’s no Physicist’s Pick yet. The first one arrives on a Friday.",gsubFs:"Every Friday, the day’s puzzle is for physicists. Solve it for a golden apple; it doesn’t affect your streak.",tagFs:"Today’s puzzle · Friday",tagFsArch:"From the archive",winGold:"The golden apple is yours! It’s shining in your calendar.",loseGold:"This golden apple stays on the branch. A new one comes next Friday; your streak is safe.",shareFs:"Entangled · Physicist’s Pick #{n}",fsToday:"Physicist’s Pick · #{n}",fsDone:"Golden apple collected · #{n}",fsEnd:"There’s a bonus today too:",fsEndLink:"Physicist’s Pick",basketFri:"Today: {n}/1 golden apple",toFs:"Physicist’s Pick archive →",toDaily:"← Daily puzzles",collectedGold:"Golden apple collected!",fromFs:"Physicist’s Pick #{n}",lgGold:"Golden apple (Physicist’s Pick)",dGold:"{d}: golden apple",dGoldAdd:"plus a golden apple",ddGold:"golden apple",ddArchFs:"from the archive, no golden apple",how6:"Every Friday, the day’s puzzle is Physicist’s Pick: a harder puzzle for physicists. Solve it for a golden apple; Fridays don’t affect your streak.",share:"Entangled #{n}",ready:"ready",draftW:"draft",badW:"has errors",dyk:"Did you know? ",draft:"Preview · {d}",errH:"Problem in bulmacalar.txt",notFound:"There is no puzzle #{n}.",badP:"Puzzle #{n} has errors; see the list above.",loadFail:"Couldn’t read the puzzle file.",
   myApples:"My apples",stSub:"Your apples, streak and stats.",statsBtn:"Statistics",calH:"Calendar",
   stPlayed:"puzzles played",stWin:"win rate",stStreak:"day streak",stBest:"best streak",stApples:"apples in total",
@@ -582,8 +604,10 @@ function parsePuzzles(txt){
       Gr={lvl:lv,cat:(m[2]||"").trim(),tr:null,en:null,line:ln};P.groups.push(Gr);L=null;return}
     if((m=s.match(/^(TR|EN)\s*:\s*(.*)$/i))){
       if(!Gr){err(ln,m[1]+": satırı bir [renk] satırının altında olmalı");return}
-      L={name:m[2].trim(),w:null,note:[]};Gr[low(m[1])]=L;return}
+      L={name:m[2].trim(),w:null,note:[],src:[]};Gr[low(m[1])]=L;return}
     if(/^\s/.test(raw)&&L){
+      /* "okuma:" satırı notun kaynağıdır; oyuncuya notun altında gösterilir */
+      if(L.w&&(m=s.match(/^okuma\s*:\s*(.*)$/i))){if(m[1].trim())L.src.push(m[1].trim());return}
       if(!L.w)L.w=s.split(",").map(function(x){return x.trim()}).filter(Boolean);
       else L.note.push(s);
       return}
@@ -635,7 +659,7 @@ function fridayToday(){return new Date().getDay()===5&&bonusToday()!=null}
 function todayNum(){if(!DATA||fridayToday())return null;return latestDaily()}
 function toGame(P,lg){
   return P.groups.slice().sort(function(a,b){return a.lvl-b.lvl}).map(function(g){
-    var x=g[lg];var raw=x.note.join(" ");return {n:x.name,w:x.w,c:LVLC[g.lvl],e:LVLE[g.lvl],note:noteClean(raw),raw:raw,lvl:g.lvl};
+    var x=g[lg];var raw=x.note.join(" ");return {n:x.name,w:x.w,c:LVLC[g.lvl],e:LVLE[g.lvl],note:noteClean(raw),raw:raw,src:x.src||[],lvl:g.lvl};
   });
 }
 /* Arşiv: lansman tarihi yazılıysa oyuncu yalnızca bugüne kadarki hazır bulmacaları görür.
@@ -889,10 +913,89 @@ function finish(win){
   $("fsEnd").hidden=true;
   $("grid-share").textContent=history.join("\n");
   $("hintUsed").textContent=(win&&!hints.length)?t("hintZero"):t("hintUsed").replace("{n}",hints.length);
+  renderEndSrc();
+  $("shareMenu").hidden=true;$("shareBtn").setAttribute("aria-expanded","false");$("shareBtn").setAttribute("aria-label",t("shareBtn"));makeShareImg();
   $("end").hidden=false;
 }
+/* Sonuç ekranı: bulmacanın kaynakları (okuma: satırları), grup grup. Hiç kaynak yoksa bağlantı görünmez. */
+function renderEndSrc(){
+  var box=$("endSrcList"),d=$("endSrc");box.innerHTML="";d.open=false;
+  var gs=(G||[]).filter(function(g){return g.src&&g.src.length});
+  d.hidden=!gs.length;
+  gs.forEach(function(g){
+    var r=document.createElement("div");r.className="es-g";r.style.setProperty("--bcol",g.c);
+    var b=document.createElement("b");b.textContent=g.n;r.appendChild(b);
+    g.src.forEach(function(s){var p=document.createElement("p");p.textContent=s;r.appendChild(p);});
+    box.appendChild(r);
+  });
+}
+function shareText(){return t(BON?"shareFs":"share").replace("{n}",CUR)+"\n"+(lastWin?t("shWin").replace("{m}",4-lives):t("shLose"))+"\n"+history.join("\n")+(hints.length?"\n"+t("hintShare").replace("{n}",hints.length):"");}
+/* Paylaş: X için hazır yazı, Instagram hikâyesi için 1080x1920 görsel (cevap yok, yalnızca renkli kareler).
+   SHARE_URL doluysa X yazısının sonuna eklenir (lansmana kadar boş: site herkese duyurulmuyor). */
+var SHARE_URL="";
+var shareImg=null;
+function makeShareImg(){
+  shareImg=null;
+  var rows=history.slice(),win=lastWin,bon=BON,num=CUR,title=t(bon?"shareFs":"share").replace("{n}",num).replace("Entangled · ","");
+  var status=win?t("shWin").replace("{m}",4-lives):t("shLose"),hintN=hints.length;
+  var fonts=document.fonts&&document.fonts.load?Promise.all(['800 84px "Bricolage Grotesque"','600 46px Inter','500 40px Inter'].map(function(f){return document.fonts.load(f)})).catch(function(){}):Promise.resolve();
+  fonts.then(function(){
+    var W=1080,H=1920,c=document.createElement("canvas");c.width=W;c.height=H;var x=c.getContext("2d");
+    var COL={"🟨":"#F4D36B","🟩":"#A6D488","🟦":"#9CC6EC","🟪":"#C3B1EF"};
+    function rr(px,py,w,h,r){x.beginPath();x.moveTo(px+r,py);x.arcTo(px+w,py,px+w,py+h,r);x.arcTo(px+w,py+h,px,py+h,r);x.arcTo(px,py+h,px,py,r);x.arcTo(px,py,px+w,py,r);x.closePath();}
+    x.fillStyle="#F3F6EF";x.fillRect(0,0,W,H);
+    x.textAlign="center";x.textBaseline="alphabetic";
+    /* Instagram hikâyesinde üstteki ~250 ve alttaki ~240 piksel uygulamanın yazılarıyla örtülür:
+       her şey aradaki güvenli alanda, dikey olarak ortalanır. */
+    var S=92,GAP=16,gw=4*S+3*GAP,gh=rows.length*(S+GAP)-GAP,cardH=250+gh+(hintN?110:70);
+    var blockH=200+cardH+110,y0=260+Math.max(0,(1420-blockH)/2),top=y0+200,gy=top+250;
+    /* elma: kazanınca kırmızı (Fizikçinin Seçimi'nde altın), kaybedince dalda kalan yeşil elma */
+    var ac=win?(bon?"#E0B23A":"#D8433B"):"#8DBA4E";
+    function apple(cx,cy,s){
+      x.fillStyle=ac;x.beginPath();x.arc(cx-20*s,cy,34*s,0,7);x.arc(cx+20*s,cy,34*s,0,7);x.fill();
+      x.beginPath();x.ellipse(cx,cy+14*s,46*s,30*s,0,0,7);x.fill();
+      x.strokeStyle="#6B4A2B";x.lineWidth=6*s;x.lineCap="round";x.beginPath();x.moveTo(cx,cy-28*s);x.quadraticCurveTo(cx+4*s,cy-52*s,cx+14*s,cy-64*s);x.stroke();
+      x.fillStyle="#5E9B3A";x.beginPath();x.ellipse(cx+32*s,cy-54*s,20*s,9*s,-0.5,0,7);x.fill();
+    }
+    x.font='800 104px "Bricolage Grotesque",Inter,sans-serif';var tw=x.measureText("Graviddle").width;
+    apple(W/2-tw/2-30,y0+52,1.15);
+    x.fillStyle="#17241C";x.fillText("Graviddle",W/2+45,y0+80);
+    x.fillStyle="#5B6B60";x.font='500 42px Inter,sans-serif';x.fillText(t("imgSlogan"),W/2,y0+148);
+    x.fillStyle="#FFFFFF";rr(110,top,W-220,cardH,48);x.fill();x.strokeStyle="#DCE3D6";x.lineWidth=3;x.stroke();
+    x.fillStyle="#17241C";x.font='800 '+(title.length>16?64:84)+'px "Bricolage Grotesque",Inter,sans-serif';x.fillText(title,W/2,top+130);
+    x.font='600 46px Inter,sans-serif';x.fillStyle=win?"#2F6B3F":"#5B6B60";x.fillText(status,W/2,top+200);
+    rows.forEach(function(r,i){Array.from(r).forEach(function(e,j){x.fillStyle=COL[e]||"#DDD";rr((W-gw)/2+j*(S+GAP),gy+i*(S+GAP),S,S,16);x.fill();});});
+    if(hintN){x.fillStyle="#5B6B60";x.font='500 40px Inter,sans-serif';x.fillText(t("hintShare").replace("{n}",hintN),W/2,gy+gh+80);}
+    x.fillStyle="#17241C";x.font='600 44px Inter,sans-serif';x.fillText("@graviddle",W/2,top+cardH+100);
+    c.toBlob(function(b){if(b)shareImg=b},"image/png");
+  });
+}
+function shareFile(){return new File([shareImg],"graviddle-"+(BON?"fs-":"")+CUR+".png",{type:"image/png"})}
+/* Paylaş simgesi: cihazın kendi paylaşım menüsünü açar (Instagram, X, WhatsApp...: telefonda hangi
+   uygulamalar yüklüyse). Görsel + yazı birlikte gider; Instagram yalnızca görseli alır.
+   Paylaşım menüsü olmayan tarayıcılarda (çoğu bilgisayar) küçük bir yedek menü açılır. */
+function shareMsg(){return shareText()+(SHARE_URL?"\n"+SHARE_URL:"")}
+$("shareBtn").addEventListener("click",function(){
+  var m=$("shareMenu");
+  if(navigator.share){
+    var data={text:shareMsg()};
+    if(shareImg){var f=shareFile();if(navigator.canShare&&navigator.canShare({files:[f],text:data.text}))data.files=[f];}
+    navigator.share(data).catch(function(){});
+    return;
+  }
+  m.hidden=!m.hidden;$("shHint").hidden=true;
+  $("shareBtn").setAttribute("aria-expanded",m.hidden?"false":"true");
+  $("shX").href="https://x.com/intent/tweet?text="+encodeURIComponent(shareMsg());
+  $("shWa").href="https://wa.me/?text="+encodeURIComponent(shareMsg());
+});
+$("shDlBtn").addEventListener("click",function(){
+  var h=$("shHint");
+  if(!shareImg){h.textContent=t("shWait");h.hidden=false;return}
+  var u=URL.createObjectURL(shareImg),a=document.createElement("a");a.href=u;a.download=shareFile().name;document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(u)},4000);
+  h.textContent=t("shDl");h.hidden=false;
+});
 $("copy").addEventListener("click",function(){
-  var txt=t(BON?"shareFs":"share").replace("{n}",CUR)+"\n"+(lastWin?t("shWin").replace("{m}",4-lives):t("shLose"))+"\n"+history.join("\n")+(hints.length?"\n"+t("hintShare").replace("{n}",hints.length):"");
+  var txt=shareText();
   if(navigator.clipboard&&navigator.clipboard.writeText){
     navigator.clipboard.writeText(txt).then(function(){say(t("copied"),"var(--success)")},function(){say(t("copyFail"),"var(--danger)")});
   }else say(t("copyFail"),"var(--danger)");
@@ -931,6 +1034,11 @@ function showNote(g){
   B.hidden=false;B.style.animation="none";void B.offsetWidth;B.style.animation="";
   var f=$("nwFace");f.classList.remove("talk");void f.offsetWidth;f.classList.add("talk");
 }
+function fillSrc(el,list){
+  el.innerHTML="";if(!list||!list.length){el.hidden=true;return}
+  var b=document.createElement("b");b.textContent=t(list.length>1?"srcHs":"srcH")+" ";
+  el.appendChild(b);el.appendChild(document.createTextNode(list.join(" · ")));el.hidden=false;
+}
 function hideNote(){$("nwB").hidden=true;}
 function updSaveBtn(){var b=$("nwSave");if(!noteNow)return;var on=nbHas(nbId(noteNow.n,noteNow.lvl,noteNow.b));b.textContent=on?t("saved"):t("save");b.classList.toggle("on",on);b.setAttribute("aria-pressed",on?"true":"false");}
 $("nwX").addEventListener("click",hideNote);
@@ -955,7 +1063,9 @@ function renderNotebook(){
     k.appendChild(src);k.appendChild(d);
     var b=document.createElement("b");b.textContent=g.n;
     var p=document.createElement("p");p.textContent=g.note;
-    c.appendChild(k);c.appendChild(b);c.appendChild(p);box.appendChild(c);
+    c.appendChild(k);c.appendChild(b);c.appendChild(p);
+    if(g.src&&g.src.length){var s=document.createElement("p");s.className="src";fillSrc(s,g.src);c.appendChild(s);}
+    box.appendChild(c);
   });
 }
 /* Defterim sekmeleri: Notlar / Kartlar / Test */
@@ -1230,7 +1340,7 @@ document.querySelectorAll("[data-lang]").forEach(function(b){b.addEventListener(
 })();
 </script>
 <script type="text/plain" id="bulmacalar-yedek">
-GRVB1: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
+GRVB1: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
 </script>
 </body>
 </html>

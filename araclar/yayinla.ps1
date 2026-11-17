@@ -5,6 +5,8 @@
 #   - index.html icindeki yedek    (dosya indirilemezse kullanilan kopya)
 # Yalnizca "durum: hazır" bulmacalar alinir; yorumlar, tuzak:/kaynak: satirlari ve
 # taslaklar cikarilir (satir numaralari bozulmasin diye bos satir birakilir).
+# Girintili "okuma:" satirlari (oyuncunun gorecegi kaynak) KALIR; yalnizca satir
+# basindaki tuzak:/kaynak: silinir.
 # "yayınla: #1, FS #1" satiri varsa yalnizca o bulmacalar alinir.
 # Sifreleme gercek bir kilit degil; cevaplarin goz ucuyla gorulmesini engeller.
 # Anahtar index.html icindeki GRV_KEY ile ayni olmali.
